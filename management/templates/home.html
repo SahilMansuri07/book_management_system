@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HomePage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 16px;
+            margin: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 50%;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            font-weight: bold;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+
+        select,
+        input[type="text"],
+        input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 80%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        button[type="reset"] {
+            background: #dc3545;
+        }
+
+        button[type="reset"]:hover {
+            background: #c82333;
+        }
+
+        /* Table Styling */
+        table {
+            width: 80%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background: #007bff;
+            color: white;
+        }
+
+        thead th {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        tbody td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        td a {
+            color: #dc3545;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="{% url 'admin' %}">Admin</a>
+        <a href="{% url 'home' %}">Home</a>
+        <h1>Home</h1>
+        <h1>Hello {{name}}!!!</h1>
+        <h1>Add Books</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{fm.as_p}}
+            <label for="">Select Author</label>
+            <select name="author" id="">
+                {% if au %}
+                {% for au in au %}
+                <option value="{{au.id}}">{{au.name}}</option>
+                {% endfor %}
+                {% else %}
+                <option value="0">No Author</option>
+                {% endif %}
+            </select><br><br>
+            <button type="submit">Add</button>
+            <button type="reset">Reset</button>
+            <a href="{% url 'logout' %}">Logout</a>
+        </form>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Srno</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Isbn</th>
+                    <th>Price</th>
+                    <th>Author</th>
+                    <th>Author Address</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if book %}
+                {% for data in book %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{data.name}}</td>
+                    <td>{{data.date}}</td>
+                    <td>{{data.time}}</td>
+                    <td>{{data.isbn}}</td>
+                    <td>{{data.price}}</td>
+                    <td>{{data.author.name}}</td>
+                    <td>{{data.author.address}}</td>
+                    <td>
+                        <a href="{% url 'update' data.id %}">Update</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'delete' data.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="10">"No records"</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

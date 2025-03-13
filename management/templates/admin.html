@@ -1,0 +1,119 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminPage</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    color: #333;
+}
+
+/* Container Styling */
+.container {
+    width: 50%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 20px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #555;
+    display: block;
+}
+
+input[type="text"], input[type="password"] {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+button {
+    background: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 80%;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #218838;
+}
+
+button[type="reset"] {
+    background: #dc3545;
+}
+
+button[type="reset"]:hover {
+    background: #c82333;
+}
+    </style>
+</head>
+
+<body>
+    <h1>Home</h1>
+    <div class="container">
+        <a href="{% url 'admin' %}">Admin</a>
+        <a href="{% url 'home' %}">Home</a>
+        <h1>Hello {{name}}!!!</h1>
+        <h1>Add Author</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{fm.as_p}}
+            <button type="submit">Add</button>
+            <button type="reset">Reset</button>
+            <a href="{% url 'logout' %}">Logout</a>
+        </form>
+    </div>
+</body>
+
+</html>

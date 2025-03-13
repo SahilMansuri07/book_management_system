@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+</head>
+<body>
+    <h1>Update</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="bkid" value="{{bkid}}">
+        {{fm.as_p}}
+        <label for="">Select Author</label>
+        <select name="author" id="">
+            {% if au %}
+                {% for au in au %}
+                    <option value="{{au.id}}">{{au.name}}</option>
+                {% endfor %}
+            {% else %}
+                <option value="0">No Author</option>
+            {% endif %}
+        </select><br>
+        <button type="submit">Update</button>
+        <button type="reset">Reset</button>
+    </form>
+</body>
+</html>
